@@ -1,15 +1,13 @@
-# Minecraft servers
-servers/*/world*
-servers/*/logs
-servers/*/plugins/*/config.yml
+# ===== Minecraft servers =====
+servers/
 
-# Node backend
-backend/node_modules
+# ===== Node backend =====
+backend/node_modules/
 backend/.env
 
-# Builds
-public/dist
-public/.cache
+# ===== Builds =====
+public/dist/
+public/.cache/
 
-# OS files
+# ===== OS files =====
 .DS_Store
