@@ -1,60 +1,116 @@
-const { spawn } = require("child_process");
-const fs = require("fs");
-const path = "/home/veltays/ssd/HomeOnSSD/minecraft/servers/";
+/**
+ * Fichier : src/services/server.service.js
+ * Auteur  : Veltays
+ * Description :
+ *  Service métier pour la gestion des serveurs Minecraft.
+ *  - Lister les serveurs
+ *  - Créer un serveur via script bash
+ *  - Démarrer un serveur
+ *  - Arrêter un serveur
+ *
+ *  Toute la logique système (spawn, fs, état, process) est déléguée :
+ *  - serverFileManager  -> gestion des fichiers
+ *  - scriptExecutor     -> exécution de scripts
+ *  - serverProcess      -> start/stop serveurs
+ */
 
-let running = {};
+import { logger } from "../core/logger.js";
+import { serverFileManager } from "./serverFileManager.service.js";
+import { serverProcess } from "./serverProcess.service.js";
+import { runScript } from "../utils/scriptExecutor.js";
+import { SCRIPTS_PATH } from "../constants/paths.js";
+import path from "path";
 
-module.exports = {
-    listServers() {
-        return fs.readdirSync(path).filter(f => fs.lstatSync(path + f).isDirectory());
-    },
+const CREATE_SCRIPT = path.join(SCRIPTS_PATH, "create_server.sh");
 
-    createServer(data) {
-        return new Promise((resolve, reject) => {
-            const script = "/home/veltays/ssd/HomeOnSSD/minecraft/backend/scripts/create_server.sh";
+/* ================================
+ * LIST SERVERS
+ * ================================ */
+export const listServers = () => {
+    try {
+        logger.info("Listing servers...");
+        const servers = serverFileManager.list();
 
-            const args = [
-                data.name,
-                data.version,
-                data.ram,
-                data.type,
-                data.worldType,
-                data.seed || ""
-            ];
+        logger.success(`Found ${servers.length} server(s)`);
+        return servers;
 
-            const proc = spawn("bash", [script, ...args]);
+    } catch (err) {
+        logger.error("Failed to list servers:", err.message);
+        throw new Error("Cannot list servers");
+    }
+};
 
-            let output = "";
 
-            proc.stdout.on("data", (d) => (output += d.toString()));
-            proc.stderr.on("data", (d) => (output += d.toString()));
+/* ================================
+ * CREATE SERVER
+ * ================================ */
+export const createServer = async (data) => {
+    try {
+        logger.info("Creating server...", data);
 
-            proc.on("close", () => resolve(output));
-            proc.on("error", (err) => reject(err));
-        });
-    },
+        const args = [
+            data.name,
+            data.version,
+            data.ram + "G",
+            data.type,
+            data.worldType,
+            data.seed || ""
+        ];
 
-    startServer(name) {
-        if (running[name]) return;
+        const result = await runScript("bash", [CREATE_SCRIPT, ...args]);
 
-        const serverPath = path + name;
-        const startFile = `${serverPath}/start.sh`;
+        // === CREATE CONFIG.JSON ===
+        try {
+            await serverFileManager.createConfig(data.name, data);
+            logger.success(`Config.json created for server "${data.name}"`);
+        }
+        catch (err) {
+            logger.error("Failed to create config.json:", err.message);
+        }
 
-        const proc = spawn("bash", [startFile], {
-            cwd: serverPath,
-            detached: true
-        });
+        logger.success("Server created successfully 🎉");
+        return result;
 
-        running[name] = proc;
+    } catch (err) {
+        logger.error("Create server error:", err.message);
+        throw new Error("Server creation failed");
+    }
+};
 
-        console.log(`🟢 Serveur ${name} STARTED`);
-    },
 
-    stopServer(name) {
-        if (!running[name]) return;
-        running[name].kill("SIGINT");
+/* ================================
+ * START SERVER
+ * ================================ */
+export const startServer = async (name) => {
+    try {
+        logger.info(`Starting server ${name}...`);
 
-        console.log(`🔴 Serveur ${name} STOPPED`);
-        delete running[name];
+        await serverProcess.start(name);
+
+        logger.success(`🟢 Server ${name} started`);
+        return true;
+
+    } catch (err) {
+        logger.error(`Failed to start server ${name}:`, err.message);
+        throw err;
+    }
+};
+
+
+/* ================================
+ * STOP SERVER
+ * ================================ */
+export const stopServer = async (name) => {
+    try {
+        logger.info(`Stopping server ${name}...`);
+
+        await serverProcess.stop(name);
+
+        logger.success(`🔴 Server ${name} stopped`);
+        return true;
+
+    } catch (err) {
+        logger.error(`Failed to stop server ${name}:`, err.message);
+        throw err;
     }
 };

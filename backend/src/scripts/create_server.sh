@@ -57,11 +57,5 @@ level-seed=$SEED
 enable-command-block=true
 EOF
 
-# ---- start.sh ----
-cat > start.sh <<EOF
-#!/bin/bash
-java -Xms${RAM} -Xmx${RAM} -jar server.jar nogui
-EOF
 
-chmod +x start.sh
 echo "[DONE] Serveur $SERVER_NAME créé avec succès."
