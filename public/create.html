@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer un serveur Minecraft</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<h1>➕ Créer un serveur Minecraft</h1>
+
+<div class="container">
+    <label>Nom du serveur</label>
+    <input id="name">
+
+    <label>Version</label>
+    <input id="version" placeholder="ex: 1.21.1">
+
+    <label>RAM</label>
+    <input id="ram" placeholder="ex: 4G">
+
+    <label>Type</label>
+    <select id="type">
+        <option value="paper">Paper</option>
+        <option value="purpur">Purpur</option>
+        <option value="vanilla">Vanilla</option>
+    </select>
+
+    <label>Type de monde</label>
+    <select id="worldType">
+        <option value="default">Normal</option>
+        <option value="flat">Superflat</option>
+        <option value="largeBiomes">Large biomes</option>
+    </select>
+
+    <button onclick="createServer()">Créer</button>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

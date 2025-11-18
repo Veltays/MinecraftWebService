@@ -1,0 +1,52 @@
+body {
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+button:hover {
+    background: #3e8e41;
+}
+
+input, select {
+    padding: 8px;
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+}
+.server-card {
+    background:#222;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:10px;
+}
+.server-actions button {
+    margin-right: 10px;
+}

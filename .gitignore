@@ -1,0 +1,15 @@
+# Minecraft servers
+servers/*/world*
+servers/*/logs
+servers/*/plugins/*/config.yml
+
+# Node backend
+backend/node_modules
+backend/.env
+
+# Builds
+public/dist
+public/.cache
+
+# OS files
+.DS_Store
