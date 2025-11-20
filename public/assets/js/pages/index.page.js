@@ -21,6 +21,7 @@ export async function loadHomePage()
     afficherChargement(listElement);
 
     const servers = await recupererListeServeurs();
+    console.log(servers)
 
     if (servers.length === 0)
     {
@@ -77,45 +78,69 @@ function afficherServeurs(listElement, servers)
     listElement.innerHTML = "";
 
     const htmlCards = servers
-        .map((serverName) => ServerCard(serverName))
+        .map((server) => ServerCard(server))
         .join("");
 
     listElement.innerHTML = htmlCards;
 }
-
 // ============================
 // === LISTENERS BOUTONS ===
 // ============================
-
 function ajouterListeners(listElement)
 {
     listElement.addEventListener("click", async (event) =>
     {
-        const btn = event.target;
+        const btn = event.target; // Récupère l'élément cliqué
 
         const aucuneAction =
             !btn.dataset ||
-            !btn.dataset.action;
+            !btn.dataset.action; // Vérifie si ce n'est pas un bouton d'action
 
         if (aucuneAction)
         {
             return;
         }
 
-        const action = btn.dataset.action;
-        const name = btn.dataset.name;
+        const action = btn.dataset.action; // 'start' ou 'stop'
+        const name = btn.dataset.name;     // Nom du serveur
 
         if (action === "start")
         {
             await ServersAPI.start(name);
         }
 
+        // L'appel API pour fermer le serveur est ici, comme demandé
         if (action === "stop")
         {
             await ServersAPI.stop(name);
         }
+        if (action === "delete") {
+
+            const input = prompt(
+                `Pour supprimer le serveur "${name}", tapez son nom :`
+            );
+
+            if (!input) {
+                alert("Suppression annulée.");
+                return;
+            }
+
+            if (input !== name) {
+                alert("Nom incorrect. Le serveur n’a pas été supprimé.");
+                return;
+            }
+
+            // Appeler l’API
+            await ServersAPI.delete(name);
+
+            alert(`Serveur "${name}" supprimé ✔`);
+            await loadHomePage();
+        }
 
         alert("Opération effectuée !");
+
+        // Rafraîchir la page pour mettre à jour le statut (Vert/Rouge)
+        await loadHomePage();
     });
 }
 

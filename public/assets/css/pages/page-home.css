@@ -1,4 +1,5 @@
 /* Home specific styles */
 #server-list {
     margin-top: 20px;
+    /* Utilisation de grid ou flexbox si besoin de colonnes, mais pour l'instant un simple margin suffit */
 }

@@ -19,6 +19,7 @@ import { serverFileManager } from "./serverFileManager.service.js";
 import { serverProcess } from "./serverProcess.service.js";
 import { runScript } from "../utils/scriptExecutor.js";
 import { SCRIPTS_PATH } from "../constants/paths.js";
+import { serverRuntime } from "../runtime/serverRuntime.store.js";
 import path from "path";
 
 const CREATE_SCRIPT = path.join(SCRIPTS_PATH, "create_server.sh");
@@ -29,10 +30,16 @@ const CREATE_SCRIPT = path.join(SCRIPTS_PATH, "create_server.sh");
 export const listServers = () => {
     try {
         logger.info("Listing servers...");
-        const servers = serverFileManager.list();
+        const serverNames = serverFileManager.list();
+
+        // MODIFICATION: Enrichir la liste avec l'état d'exécution
+        const servers = serverNames.map(name => ({
+            name,
+            isRunning: serverRuntime.isRunning(name) // Utiliser le store d'exécution
+        }));
 
         logger.success(`Found ${servers.length} server(s)`);
-        return servers;
+        return servers; // Retourner les objets enrichis
 
     } catch (err) {
         logger.error("Failed to list servers:", err.message);
@@ -113,4 +120,29 @@ export const stopServer = async (name) => {
         logger.error(`Failed to stop server ${name}:`, err.message);
         throw err;
     }
+};
+
+
+
+
+export const deleteServer = async (name) => {
+    logger.info(`Deleting server ${name}...`);
+
+    // Vérifier qu’il existe
+    const exists = serverFileManager.exists(name);
+    if (!exists) {
+        throw new Error(`Server "${name}" does not exist`);
+    }
+
+    // Si le serveur tourne : stop
+    if (serverRuntime.isRunning(name)) {
+        logger.warn(`Server ${name} running — stopping before deletion`);
+        await serverProcess.stop(name);
+    }
+
+    // Supprimer dossier
+    await serverFileManager.delete(name);
+
+    logger.success(`🗑 Server ${name} deleted`);
+    return true;
 };

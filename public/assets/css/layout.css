@@ -9,4 +9,6 @@ h1, h2, h3 {
     background: var(--bg-lighter);
     padding: 25px;
     border-radius: var(--radius);
+    border: 1px solid var(--border); /* Nouveau : bordure subtile */
+    box-shadow: var(--shadow-dark); /* Nouveau : ombre pour la profondeur */
 }

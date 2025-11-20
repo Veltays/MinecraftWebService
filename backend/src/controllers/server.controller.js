@@ -43,5 +43,17 @@ export default {
         } catch (e) {
             return error(res, "Impossible d'arrêter ce serveur", 500, e.message);
         }
+    },
+
+    // === DELETE SERVEUR ===
+    async delete(req, res) {
+        try {
+            const name = req.params.name;
+            await service.deleteServer(name);
+
+            return success(res, null, `Serveur "${name}" supprimé avec succès`);
+        } catch (e) {
+            return error(res, "Impossible de supprimer ce serveur", 400, e.message);
+        }
     }
 };

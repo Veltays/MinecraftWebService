@@ -2,14 +2,18 @@ button {
     padding: 10px 15px;
     border: none;
     background: var(--accent);
-    color: white;
+    color: var(--bg-lighter); /* Texte en sombre sur les boutons d'action */
+    font-weight: bold;
     cursor: pointer;
     border-radius: var(--radius);
-    transition: background 0.2s;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 button:hover {
     background: var(--accent-hover);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transform: translateY(-1px);
 }
 
 input, select, textarea {
@@ -19,21 +23,72 @@ input, select, textarea {
     margin-bottom: 16px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
-    background: #222;
+    background: #252525; /* Champ plus clair que le conteneur */
     color: var(--text);
+    transition: border-color 0.2s;
 }
 
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+/* --- SERVER CARD --- */
 .server-card {
-    background: #1f1f1f;
+    background: #1f1f1f; /* Plus foncé que le conteneur parent */
     padding: 15px;
     border-radius: var(--radius);
     margin-bottom: 12px;
+    border-left: 5px solid var(--accent); /* Barre latérale pour l'effet panel */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.server-card h3 {
+    text-align: left; /* Alignement du titre de la carte */
+    margin-bottom: 10px;
 }
 
 .server-actions {
-    margin-top: 10px;
+    margin-top: 15px;
+    display: flex;
+    gap: 8px; /* Espacement entre les boutons */
 }
 
+/* Retrait du style pour les boutons dans .server-actions car le style global est appliqué */
 .server-actions button {
-    margin-right: 10px;
+    margin-right: 0;
+    flex-grow: 1;
+}
+
+/* --- STATUT BADGES --- */
+
+.server-status {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.status-running {
+    background: #3ba55d; /* Vert (Discord Green-like) */
+    color: white;
+}
+
+.status-stopped {
+    background: #d83c3e; /* Rouge (Discord Red-like) */
+    color: white;
+}
+
+.btn-open {
+    background: #5865f2; /* Bleu secondaire pour "Ouvrir" */
+    color: white;
+}
+
+.btn-delete {
+    background: #d83c3e; /* Rouge pour "Supprimer" */
+    color: white;
 }

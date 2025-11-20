@@ -42,5 +42,25 @@ export const serverFileManager = {
         path.join(SERVERS_PATH, name),
 
     getStartScript: (name) =>
-        path.join(SERVERS_PATH, name, "start.sh")
+        path.join(SERVERS_PATH, name, "start.sh"),
+
+    // ================================
+    // === NOUVELLES MÉTHODES POUR DELETE ===
+    // ================================
+
+    /**
+     * Vérifie si le dossier du serveur existe.
+     */
+    exists: (name) =>
+        fs.existsSync(path.join(SERVERS_PATH, name)),
+
+    /**
+     * Supprime le dossier complet du serveur de manière récursive.
+     */
+    delete: (name) => {
+        const folder = path.join(SERVERS_PATH, name);
+
+        // fs.rmSync est l'équivalent moderne pour la suppression de dossiers récursive.
+        fs.rmSync(folder, { recursive: true, force: true });
+    }
 };

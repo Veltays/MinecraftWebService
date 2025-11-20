@@ -7,14 +7,15 @@
 
 /* VARIABLES */
 :root {
-    --bg: #111;
-    --bg-lighter: #1b1b1b;
-    --text: #eee;
-    --accent: #4CAF50;
-    --accent-hover: #3e8e41;
+    --bg: #0d0d0d; /* Noir profond */
+    --bg-lighter: #1a1a1a; /* Fond des conteneurs */
+    --text: #f0f0f0;
+    --accent: #00bcd4; /* Cyan/Bleu tech */
+    --accent-hover: #0097a7;
     --border: #333;
-    --radius: 8px;
-    --font-main: Arial, sans-serif;
+    --radius: 6px; /* Légèrement réduit pour un look plus net */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --shadow-dark: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* GLOBAL */
@@ -23,4 +24,10 @@ body {
     color: var(--text);
     font-family: var(--font-main);
     padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    color: var(--accent); /* Titre en couleur accent */
+    text-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
 }

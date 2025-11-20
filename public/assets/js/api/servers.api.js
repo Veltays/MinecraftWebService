@@ -82,5 +82,23 @@ export const ServersAPI =
             const response = await fetch(url, options);
 
             return response;
+        },
+
+        // ============================
+        // === SUPPRIMER SERVEUR ===
+        // ============================
+
+        async delete(name) {
+            const url = API_BASE + "/" + name; // Appel à /api/servers/:name
+
+            const options =
+                {
+                    method: "DELETE" // CORRECTION: Utilisation de fetch avec la méthode DELETE
+                };
+
+            const response = await fetch(url, options);
+
+            return response;
         }
+
     };
