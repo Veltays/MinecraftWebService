@@ -1,4 +1,4 @@
-const API = "http://raspberrypi.local:3001/api/servers";
+const API = "https://veltays.be/api/servers";
 
 // List servers
 async function loadServers() {

@@ -1,0 +1,29 @@
+/* Create page specific */
+.container label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+
+.ram-select {
+    background: #252525;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #3a3a3a;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ram-select:hover {
+    background: #303030;
+    border-color: #555;
+}
+
+.ram-select:focus {
+    border-color: #00b7ff;
+    box-shadow: 0 0 5px #00b7ff;
+}

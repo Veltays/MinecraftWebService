@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Créer un serveur Minecraft</title>
-    <link rel="stylesheet" href="assets/style.css">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/page-create.css">
 </head>
 <body>
 
 <h1>➕ Créer un serveur Minecraft</h1>
 
 <div class="container">
+
     <label>Nom du serveur</label>
     <input id="name">
 
-    <label>Version</label>
-    <input id="version" placeholder="ex: 1.21.1">
-
-    <label>RAM</label>
-    <input id="ram" placeholder="ex: 4G">
 
     <label>Type</label>
     <select id="type">
         <option value="paper">Paper</option>
         <option value="purpur">Purpur</option>
         <option value="vanilla">Vanilla</option>
+        <option value="snapshot">Snapshot</option>
     </select>
+
+
+    <label>Version</label>
+    <select id="version" class="version-select">
+        <!-- Les options seront ajoutées dynamiquement via JavaScript -->
+    </select>
+
+    <label>RAM</label>
+    <select id="ram" class="ram-select">
+        <option value="1G">1G</option>
+        <option value="2G">2G</option>
+        <option value="3G">3G</option>
+        <option value="4G">4G</option>
+        <option value="5G">5G</option>
+        <option value="6G">6G</option>
+        <option value="7G">7G</option>
+        <option value="8G">8G</option>
+        <option value="9G">9G</option>
+        <option value="10G">10G</option>
+        <option value="11G">11G</option>
+        <option value="12G">12G</option>
+    </select>
+
 
     <label>Type de monde</label>
     <select id="worldType">
@@ -32,9 +57,10 @@
         <option value="largeBiomes">Large biomes</option>
     </select>
 
-    <button onclick="createServer()">Créer</button>
+    <button id="btn-create">Créer</button>
+
 </div>
 
-<script src="assets/app.js"></script>
+<script type="module" src="assets/js/pages/create.page.js"></script>
 </body>
 </html>

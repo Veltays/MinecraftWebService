@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Serveur Minecraft</title>
+    <link rel="stylesheet" href="./assets/css/pages/page-server.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Titre dynamique -->
+    <h1 id="server-title">Serveur</h1>
+
+    <!-- Informations du serveur -->
+    <section class="info-box">
+        <h2>Informations</h2>
+
+        <div class="info-row">
+            <span class="label">Nom :</span>
+            <span id="info-name"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Version :</span>
+            <span id="info-version"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">RAM :</span>
+            <span id="info-ram"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Type :</span>
+            <span id="info-type"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Monde :</span>
+            <span id="info-world"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">IP du serveur :</span>
+            <span id="info-ip">91.86.140.5:25565</span>
+        </div>
+    </section>
+
+    <!-- Actions -->
+    <section class="actions-box">
+        <h2>Actions</h2>
+
+        <button id="btn-start" class="btn success">
+            Démarrer
+        </button>
+
+        <button id="btn-stop" class="btn danger">
+            Arrêter
+        </button>
+
+        <button id="btn-console" class="btn default">
+            Ouvrir la console
+        </button>
+    </section>
+
+</div>
+
+<script type="module" src="./assets/js/pages/server.page.js"></script>
+</body>
+
+</html>

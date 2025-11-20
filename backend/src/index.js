@@ -1,8 +1,7 @@
 /**
  * Fichier : src/index.js
- * Auteur  : Veltays
  * Description :
- *  Point d'entrée principal de l'API Minecraft.
+ *  Point d'entrée principal de l'API Minecraft + WebSockets.
  */
 
 import express from "express";
@@ -14,14 +13,23 @@ import { consoleWebSocket } from "./ws/console.ws.js";
 
 const app = express();
 
-// Charge Express (routes, middlewares…)
+// Charger Express (middleware, routes…)
 loadExpress(app);
 
-// On crée un serveur HTTP pour supporter WebSocket
+// Créer serveur HTTP pour gérer WebSocket
 const server = http.createServer(app);
 
 // === WebSocket ===
-const wss = new WebSocketServer({ server });
+// CORS WS : on les autorise via verifyClient (méthode propre)
+const wss = new WebSocketServer({
+    server,
+    verifyClient: (info, done) =>
+    {
+        // Ici tu peux filtrer des domaines si tu veux
+        // Exemple: if(info.origin !== "http://ton-site.com") return done(false);
+        done(true);
+    }
+});
 
 wss.on("connection", (ws, req) =>
 {
@@ -35,11 +43,11 @@ wss.on("connection", (ws, req) =>
     ws.close();
 });
 
-// === Lancement du serveur ===
-const PORT = 3001;
+// === Lancer le serveur ===
+const PORT = 5000;
 const HOST = "0.0.0.0";
 
 server.listen(PORT, HOST, () =>
 {
-    logger.success(`Minecraft API + WS en ligne sur le port ${PORT}`);
+    logger.success(`Minecraft API + WebSocket opérationnels sur ${HOST}:${PORT}`);
 });

@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>RaspbMinecraft - Panel</title>
-    <link rel="stylesheet" href="assets/style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/page-home.css">
 </head>
-<body onload="loadServers()">
+<body>
 
 <h1>🟩 RaspbMinecraft - Panel</h1>
 
 <div class="container">
-    <a href="create.html"><button>Créer un nouveau serveur</button></a>
+    <a href="create.html">
+        <button>Créer un nouveau serveur</button>
+    </a>
 
-    <h2>Liste des serveurs :</h2>
+    <h2>Liste des serveurs</h2>
     <div id="server-list"></div>
 </div>
 
-<script src="assets/app.js"></script>
+<script type="module" src="assets/js/pages/index.page.js"></script>
 </body>
 </html>

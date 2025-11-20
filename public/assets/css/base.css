@@ -1,0 +1,26 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* VARIABLES */
+:root {
+    --bg: #111;
+    --bg-lighter: #1b1b1b;
+    --text: #eee;
+    --accent: #4CAF50;
+    --accent-hover: #3e8e41;
+    --border: #333;
+    --radius: 8px;
+    --font-main: Arial, sans-serif;
+}
+
+/* GLOBAL */
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    padding: 20px;
+}

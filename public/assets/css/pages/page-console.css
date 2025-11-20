@@ -1,0 +1,9 @@
+#console {
+    width: 100%;
+    height: 450px;
+    background: black;
+    color: #0f0;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-family: monospace;
+}

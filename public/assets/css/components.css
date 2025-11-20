@@ -1,0 +1,39 @@
+button {
+    padding: 10px 15px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: var(--accent-hover);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: #222;
+    color: var(--text);
+}
+
+.server-card {
+    background: #1f1f1f;
+    padding: 15px;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+}
+
+.server-actions {
+    margin-top: 10px;
+}
+
+.server-actions button {
+    margin-right: 10px;
+}
