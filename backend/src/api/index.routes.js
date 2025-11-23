@@ -7,7 +7,7 @@
 
 import express from "express";
 import serverRoutes from "./domains/server.routes.js";
-import serverInfoRoutes from "./domains/serverInfoRoutes.js";
+import serverInfoRoutes from "./domains/Info.routes.js";
 
 const router = express.Router();
 
